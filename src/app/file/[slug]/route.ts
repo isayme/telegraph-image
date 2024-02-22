@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { NextRequest } from 'next/server'
 
 export const runtime = 'edge'
@@ -8,17 +7,13 @@ export async function GET(
   { params }: { params: { slug: string } },
 ) {
   const slug = params.slug
-  let res: any = await axios.get(`https://telegra.ph/file/${slug}`, {
-    responseType: 'stream',
-    decompress: false,
+
+  let res = await fetch(`https://telegra.ph/file/${slug}`, {
+    method: 'GET',
   })
 
-  let headers = undefined
-  if (res.headers) {
-    headers = res.headers.toJSON()
-  }
-  return new Response(res.data, {
-    headers,
+  return new Response(res.body, {
+    headers: res.headers,
     status: res.status,
   })
 }
