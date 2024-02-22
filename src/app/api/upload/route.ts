@@ -5,7 +5,7 @@
 import axios from 'axios'
 import { NextResponse, type NextRequest } from 'next/server'
 
-// expo2rt const runtime = 'edge'
+export const runtime = 'edge'
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData()
